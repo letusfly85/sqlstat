@@ -5,6 +5,32 @@ class SqlstatController {
     def model
     def view
 
+    def submit = {
+        evt = null ->
+            model.message = "hello " + model.name + "!"
+    }
+
+    def start = {
+        evt = null ->
+            model.startEnabled = false
+            model.stopEnabled  = true
+            def result
+            try {
+                result = "a"
+            } finally {
+                null
+            }
+            //TODO
+            //timer.start()
+    }
+
+    def stop = {
+        evt = null ->
+            println("stop")
+            model.startEnabled = true
+            model.stopEnabled  = false
+    }
+
     // void mvcGroupInit(Map args) {
     //    // this method is called after model and view are injected
     // }
