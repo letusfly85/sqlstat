@@ -15,4 +15,8 @@ class SqlstatModel {
     @Bindable boolean startEnabled = true
     @Bindable boolean stopEnabled  = true
 
+    @Bindable int progress = 0
+    @Bindable boolean indeterminate = false
+    @Bindable int value = 0
+
 }

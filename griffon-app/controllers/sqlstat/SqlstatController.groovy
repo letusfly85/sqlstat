@@ -1,5 +1,7 @@
 package sqlstat
 
+import griffon.transform.Threading
+
 class SqlstatController {
     // these will be injected by Griffon
     def model
@@ -12,16 +14,46 @@ class SqlstatController {
 
     def start = {
         evt = null ->
-            model.startEnabled = false
-            model.stopEnabled  = true
+            //model.startEnabled = false
+            //model.stopEnabled  = true
+            //model.indeterminate = true
+            model.value = 50
+
+            action1
+
+            //model.value = 90
+            /*
             def result
             try {
                 result = "a"
             } finally {
                 null
             }
+            */
             //TODO
             //timer.start()
+    }
+    /**
+     * http://griffon.codehaus.org/guide/0.9.3/guide/9.%20Threading.html
+     */
+    def action1 = { evt = null ->
+        model.value = 30
+        def value = model.value
+
+        def idx = 0
+        //3.times {
+        while (model.value < 100) {
+            idx += 1
+            edt {
+                sleep(1000)
+                println("async")
+                value = 10 * idx
+
+                doLater {
+                    model.value = value
+                }
+            }
+        }
     }
 
     def stop = {
