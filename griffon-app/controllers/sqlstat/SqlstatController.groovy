@@ -1,6 +1,6 @@
 package sqlstat
 
-import griffon.transform.Threading
+import sqlstat.DBAgent
 
 class SqlstatController {
     // these will be injected by Griffon
@@ -37,8 +37,14 @@ class SqlstatController {
      * http://griffon.codehaus.org/guide/0.9.3/guide/9.%20Threading.html
      */
     def action1 = { evt = null ->
-        model.value = 30
-        def value = model.value
+        def db = new DBAgent()
+        db.connect()
+        def value = db.getStatInfo()
+        println(value)
+        db.close()
+
+        model.value = value
+        //def value = model.value
 
         def idx = 0
         //3.times {
