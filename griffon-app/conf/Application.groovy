@@ -16,4 +16,11 @@ mvcGroups {
         controller = 'sqlstat.SqlstatController'
     }
 
+    // MVC Group for "sqlstat"
+    'sqlstat' {
+        model      = 'sqlstat.SqlstatModel'
+        view       = 'sqlstat.SqlstatView'
+        controller = 'sqlstat.SqlstatController'
+    }
+
 }

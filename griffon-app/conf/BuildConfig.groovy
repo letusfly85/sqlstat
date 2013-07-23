@@ -192,3 +192,6 @@ log4j = {
 
 app.fileType = '.groovy'
 app.defaultPackageName = 'sqlstat'
+
+app.fileType = '.groovy'
+app.defaultPackageName = 'sqlstat'
