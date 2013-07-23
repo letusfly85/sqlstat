@@ -12,27 +12,6 @@ class SqlstatController {
             model.message = "hello " + model.name + "!"
     }
 
-    def start = {
-        evt = null ->
-            //model.startEnabled = false
-            //model.stopEnabled  = true
-            //model.indeterminate = true
-            model.value = 50
-
-            action1
-
-            //model.value = 90
-            /*
-            def result
-            try {
-                result = "a"
-            } finally {
-                null
-            }
-            */
-            //TODO
-            //timer.start()
-    }
     /**
      * http://griffon.codehaus.org/guide/0.9.3/guide/9.%20Threading.html
      */
@@ -43,11 +22,11 @@ class SqlstatController {
         println(value)
         db.close()
 
+        println(db.generateQuery("select_active_sql_list.sql"))
+
         model.value = value
-        //def value = model.value
 
         def idx = 0
-        //3.times {
         while (model.value < 100) {
             idx += 1
             edt {

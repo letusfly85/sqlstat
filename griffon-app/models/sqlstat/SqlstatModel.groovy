@@ -2,9 +2,7 @@ package sqlstat
 
 import groovy.beans.Bindable
 
-import javax.swing.JButton
-import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
+import sqlstat.SqlstatInfo
 
 class SqlstatModel {
    // @Bindable String propName
@@ -18,5 +16,7 @@ class SqlstatModel {
     @Bindable int progress = 0
     @Bindable boolean indeterminate = false
     @Bindable int value = 0
+
+    @Bindable List<SqlstatInfo> list
 
 }

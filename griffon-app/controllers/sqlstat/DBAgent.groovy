@@ -5,24 +5,19 @@ import java.sql.DriverManager
 import java.sql.PreparedStatement
 import java.sql.SQLException
 
-import sqlstat.Prop
-
 class DBAgent {
     Connection conn = null
 
     void connect() {
-        Prop prop = new Prop()
-
         def url
         def pass
         def user
-
         try {
-
-
-            url =  prop.url
-            pass = prop.pass
-            user = prop.user
+            Properties properties = new Properties()
+            properties.load(getClass().getResourceAsStream("/.properties"))
+            url  = properties.getProperty("HOST")
+            pass = properties.getProperty("USER")
+            user = properties.getProperty("PASS")
 
         } catch (Exception e) {
             e.printStackTrace()
@@ -63,6 +58,19 @@ class DBAgent {
             }
         }
 
+    }
+
+    def generateQuery(filePath) {
+        def sqlPath = "/sql/" + filePath
+        InputStream inputStream = getClass().getResourceAsStream(sqlPath)
+
+        def query
+
+        inputStream.readLines().each {
+            query += it + "\n"
+        }
+
+        return query
     }
 
 }
