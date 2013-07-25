@@ -35,7 +35,12 @@ application(title: 'sqlstat',
 
     hbox(id:'start') //,constraints: SOUTH)
         button('start', actionPerformed: controller.&action1,
-               enabled: bind {model.startEnabled}
+               enabled: bind {model.startEnabled} ,
+                constraints: NORTH
+        )
+        button('stop', actionPerformed: controller.&stop,
+                enabled: bind {model.stopEnabled},
+                constraints: CENTER
         )
         progressBar(id: 'progress',
             indeterminate: bind {model.indeterminate},

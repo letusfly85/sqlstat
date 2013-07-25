@@ -1,9 +1,5 @@
 package sqlstat
 
-import groovy.beans.Bindable
-
-import sqlstat.SqlstatInfo
-
 class SqlstatModel {
    // @Bindable String propName
 
@@ -17,6 +13,6 @@ class SqlstatModel {
     @Bindable boolean indeterminate = false
     @Bindable int value = 0
 
-    @Bindable List<SqlstatInfo> list
+    @Bindable List<SqlstatInfoBean> list
 
 }

@@ -59,18 +59,4 @@ class DBAgent {
         }
 
     }
-
-    def generateQuery(filePath) {
-        def sqlPath = "/sql/" + filePath
-        InputStream inputStream = getClass().getResourceAsStream(sqlPath)
-
-        def query
-
-        inputStream.readLines().each {
-            query += it + "\n"
-        }
-
-        return query
-    }
-
 }

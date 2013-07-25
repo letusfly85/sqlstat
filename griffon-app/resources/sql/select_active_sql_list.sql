@@ -12,6 +12,7 @@ select
 		else to_char(ses.COMMAND)
 	end as command
 	,sql.SQL_TEXT
+	,sql.SQL_FULLTEXT
 from
 	 v$sql sql
 	,v$session ses

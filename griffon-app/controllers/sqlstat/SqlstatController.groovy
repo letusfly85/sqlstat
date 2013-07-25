@@ -1,29 +1,45 @@
 package sqlstat
 
 import sqlstat.DBAgent
+import java.sql.Connection
 
 class SqlstatController {
-    // these will be injected by Griffon
     def model
     def view
-
-    def submit = {
-        evt = null ->
-            model.message = "hello " + model.name + "!"
-    }
 
     /**
      * http://griffon.codehaus.org/guide/0.9.3/guide/9.%20Threading.html
      */
     def action1 = { evt = null ->
+        model.startEnabled = false
+        model.stopEnabled  = true
+
+        def date = new Date()
+
+        def dao = new SqlstatInfoDao()
         def db = new DBAgent()
-        db.connect()
-        def value = db.getStatInfo()
-        println(value)
-        db.close()
+        try {
+            db.connect()
 
-        println(db.generateQuery("select_active_sql_list.sql"))
+            while(!model.startEnabled) {
+                sleep(3000)
+                def list = dao.selectActiveSessionList(db.conn)
+                list.each {SqlstatInfoBean bean ->
+                    println("date   username   status sqlid   commnad sqlText")
+                    println(date.toString() + "\t" + bean.userName + "\t" + bean.status + "\t" + bean.sqlId  + "\t" + bean.command + "\t" + bean.sqlText.substring(0,30))
+                    println("       ")
+                }
+            }
 
+        } catch (Exception e) {
+            e.printStackTrace()
+
+        } finally {
+            db.close()
+        }
+
+        /*
+        def value = 0
         model.value = value
 
         def idx = 0
@@ -39,6 +55,7 @@ class SqlstatController {
                 }
             }
         }
+        */
     }
 
     def stop = {
