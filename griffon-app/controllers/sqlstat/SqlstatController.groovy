@@ -24,11 +24,40 @@ class SqlstatController {
             while(!model.startEnabled) {
                 sleep(3000)
                 def list = dao.selectActiveSessionList(db.conn)
+                def resultList = []
                 list.each {SqlstatInfoBean bean ->
-                    println("date   username   status sqlid   commnad sqlText")
-                    println(date.toString() + "\t" + bean.userName + "\t" + bean.status + "\t" + bean.sqlId  + "\t" + bean.command + "\t" + bean.sqlText.substring(0,30))
-                    println("       ")
+                    resultList.add(
+                            [UserName:bean.userName,
+                             Status:  bean.status,
+                             Event:   bean.event,
+                             Sqlid:   bean.sqlId,
+                             Commnad: bean.command,
+                             SqlText: bean.sqlText]
+                    )
                 }
+                view.searchResult.rowsModel.value = resultList
+                view.searchResult.fireTableDataChanged()
+
+                def statList = dao.selectSqlStatInfo(db.conn)
+                def resultStatList = []
+                statList.each {SqlstatInfoBean bean ->
+                    resultStatList.add(
+                        [
+                                UserName:       bean.userName,
+                                Status:         bean.status,
+                                Event:          bean.event,
+                                SqlId:          bean.sqlId,
+                                SqlText:        bean.sqlText,
+                                ElapsedSeconds: bean.elapsedSeconds,
+                                TimeRemaining:  bean.timeRemaining,
+                                Total:          bean.total,
+                                Opname:         bean.opname,
+                                Target:         bean.target
+                        ]
+                    )
+                }
+                view.searchStatResult.rowsModel.value = resultStatList
+                view.searchStatResult.fireTableDataChanged()
             }
 
         } catch (Exception e) {

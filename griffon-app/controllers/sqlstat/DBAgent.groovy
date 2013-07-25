@@ -28,6 +28,7 @@ class DBAgent {
             this.conn = DriverManager.getConnection(url, user, pass)
 
         } catch (Exception e) {
+            println(url + "\t" + user + "\t" + pass)
             e.printStackTrace()
         }
     }

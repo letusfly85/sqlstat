@@ -13,6 +13,7 @@ select
 	end as command
 	,sql.SQL_TEXT
 	,sql.SQL_FULLTEXT
+	,ses.EVENT
 from
 	 v$sql sql
 	,v$session ses

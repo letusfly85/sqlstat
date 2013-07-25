@@ -1,6 +1,7 @@
 select
 	 ses.USERNAME
 	,ses.STATUS
+	,ses.EVENT
 	,ops.SQL_ID
 	,sql.SQL_TEXT
 	,ops.ELAPSED_SECONDS
@@ -19,4 +20,5 @@ and ses.SERIAL#  = ops.SERIAL#
 and ops.SQL_ID = sql.SQL_ID
 and ses.USERNAME is not null
 and to_char(ops.START_TIME, 'yyyymmdd') = to_char(sysdate, 'yyyymmdd')
-and sql.SQL_ID = ?
+and ops.TIME_REMAINING <> 0
+--and sql.SQL_ID = ?

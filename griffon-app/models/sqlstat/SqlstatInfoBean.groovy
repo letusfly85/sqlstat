@@ -8,6 +8,7 @@ class SqlstatInfoBean {
     def command
     def sqlText
     def sqlFullText
+    def event
     def elapsedSeconds
     def timeRemaining
     def total

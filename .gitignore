@@ -1,4 +1,4 @@
-.properties
+*.properties
 Prop.groovy
 .idea
 staging
