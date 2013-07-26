@@ -7,6 +7,11 @@ class SqlstatController {
     def model
     def view
 
+    void mvcGroupInit(Map args) {
+        def (m, v, c) = createMVCGroup('dblogin', 'f', name:'f(x)')
+        view.functionSection.add(v.content)    // Controller から埋め込みを実行
+    }
+
     /**
      * http://griffon.codehaus.org/guide/0.9.3/guide/9.%20Threading.html
      */

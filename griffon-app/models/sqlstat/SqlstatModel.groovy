@@ -1,7 +1,8 @@
 package sqlstat
 
+import java.sql.Connection
+
 class SqlstatModel {
-   // @Bindable String propName
 
     @Bindable String name
     @Bindable String message = "Hello, Griffon!"
@@ -14,5 +15,7 @@ class SqlstatModel {
     @Bindable int value = 0
 
     @Bindable List<SqlstatInfoBean> list
+
+    @Bindable Connection conn
 
 }

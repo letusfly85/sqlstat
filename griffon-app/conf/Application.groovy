@@ -9,6 +9,13 @@ application {
     //frameClass = 'javax.swing.JFrame'
 }
 mvcGroups {
+    // MVC Group for "dblogin"
+    'dblogin' {
+        model      = 'sqlstat.DbloginModel'
+        view       = 'sqlstat.DbloginView'
+        controller = 'sqlstat.DbloginController'
+    }
+
     // MVC Group for "sqlstat"
     'sqlstat' {
         model      = 'sqlstat.SqlstatModel'

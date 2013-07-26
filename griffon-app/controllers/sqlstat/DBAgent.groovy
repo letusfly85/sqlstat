@@ -8,6 +8,18 @@ import java.sql.SQLException
 class DBAgent {
     Connection conn = null
 
+    void getConnect(url, user, pass) {
+       try {
+           def host = "jdbc:oracle:thin:@" + url.replace("/", ":")
+            Class.forName("oracle.jdbc.driver.OracleDriver").newInstance()
+            this.conn = DriverManager.getConnection(host, user, pass)
+
+        } catch (Exception e) {
+            println(url + "\t" + user + "\t" + pass)
+            e.printStackTrace()
+        }
+    }
+
     void connect() {
         def url
         def pass
@@ -31,25 +43,6 @@ class DBAgent {
             println(url + "\t" + user + "\t" + pass)
             e.printStackTrace()
         }
-    }
-
-    public int getStatInfo() {
-        def value = 0
-
-        PreparedStatement stmt = this.conn.prepareStatement("select 10 as NUM from dual")
-        try {
-            def res = stmt.executeQuery()
-            while (res.next()) {
-                value = res.getInt("NUM")
-            }
-        } catch (SQLException e) {
-            e.printStackTrace()
-
-        } finally {
-            stmt.close()
-        }
-
-        return value
     }
 
     void close() {
