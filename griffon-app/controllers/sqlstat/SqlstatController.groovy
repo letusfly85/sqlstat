@@ -7,9 +7,40 @@ class SqlstatController {
     def model
     def view
 
+    def db = new DBAgent()
+
     void mvcGroupInit(Map args) {
-        def (m, v, c) = createMVCGroup('dblogin', 'f', name:'f(x)')
-        view.functionSection.add(v.content)    // Controller から埋め込みを実行
+        //def (m, v, c) = createMVCGroup('dblogin', 'l', name:'l(x)')
+        //view.functionSection.add(v.content)    // Controller から埋め込みを実行
+    }
+
+    def login = { evt = null ->
+        model.indeterminate = true
+
+        def url  = model.hostname
+        def user = model.username
+        def pass = model.password
+
+        db.getConnect(url, user, pass)
+
+        if (db.conn == null){
+            model.value = 0
+            //TODO
+            //raise
+        } else {
+            model.value = 100
+        }
+        model.indeterminate = false
+    }
+
+    def logout = { evt = null ->
+
+        if (!db.conn.isClosed()) {
+            db.conn.close()
+        }
+        model.indeterminate = false
+        model.value = 0
+
     }
 
     /**
@@ -19,16 +50,16 @@ class SqlstatController {
         model.startEnabled = false
         model.stopEnabled  = true
 
-        def date = new Date()
-
         def dao = new SqlstatInfoDao()
-        def db = new DBAgent()
+        //def db = new DBAgent()
         try {
-            db.connect()
+            //db.connect()
+            //db.getConnect(model.hostname, model.username, model.password)
 
             while(!model.startEnabled) {
                 sleep(3000)
                 def list = dao.selectActiveSessionList(db.conn)
+                //def list = dao.selectActiveSessionList(model.conn)
                 def resultList = []
                 list.each {SqlstatInfoBean bean ->
                     resultList.add(
@@ -71,25 +102,6 @@ class SqlstatController {
         } finally {
             db.close()
         }
-
-        /*
-        def value = 0
-        model.value = value
-
-        def idx = 0
-        while (model.value < 100) {
-            idx += 1
-            edt {
-                sleep(1000)
-                println("async")
-                value = 10 * idx
-
-                doLater {
-                    model.value = value
-                }
-            }
-        }
-        */
     }
 
     def stop = {
@@ -98,21 +110,4 @@ class SqlstatController {
             model.startEnabled = true
             model.stopEnabled  = false
     }
-
-    // void mvcGroupInit(Map args) {
-    //    // this method is called after model and view are injected
-    // }
-
-    // void mvcGroupDestroy() {
-    //    // this method is called when the group is destroyed
-    // }
-
-    /*
-        Remember that actions will be called outside of the UI thread
-        by default. You can change this setting of course.
-        Please read chapter 9 of the Griffon Guide to know more.
-       
-    def action = { evt = null ->
-    }
-    */
 }

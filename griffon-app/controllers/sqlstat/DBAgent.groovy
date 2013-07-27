@@ -6,8 +6,15 @@ import java.sql.PreparedStatement
 import java.sql.SQLException
 
 class DBAgent {
-    Connection conn = null
 
+//    private static final DBAgent instance = new DBAgent()
+//    private DBAgent() {}
+//
+//    public static DBAgent getInstance() {
+//        return DBAgent.instance
+//    }
+
+    Connection conn = null
     void getConnect(url, user, pass) {
        try {
            def host = "jdbc:oracle:thin:@" + url.replace("/", ":")
@@ -15,7 +22,7 @@ class DBAgent {
             this.conn = DriverManager.getConnection(host, user, pass)
 
         } catch (Exception e) {
-            println(url + "\t" + user + "\t" + pass)
+            println("++++++++++++" + url + "\t" + user + "\t" + pass + "+++++++++++++++")
             e.printStackTrace()
         }
     }

@@ -1,6 +1,8 @@
 package sqlstat
 
 import groovy.model.ValueHolder
+import javax.swing.BorderFactory
+import net.miginfocom.swing.MigLayout
 
 application(title: 'sqlstat',
   size: [640, 640],
@@ -26,8 +28,21 @@ application(title: 'sqlstat',
             value: bind {model.value}
         )
 
-        panel(id:'functionSection'){
-            //migLayout layoutConstraints:'wrap 1'
+        panel(id:'content'){
+            borderLayout()
+            hbox(constraints: CENTER){
+                textField '', columns: 15, text: bind (target: model, 'username')
+                label '/'
+                textField '', columns: 15, text: bind (target: model, 'password')
+                label '@'
+                textField '', columns: 15, text: bind (target: model, 'hostname')
+            }
+            hbox(constraints: SOUTH){
+                button('ログイン',
+                        actionPerformed: controller.&login)
+                button('ログアウト',
+                        actionPerformed: controller.&logout)
+            }
         }
     }
 

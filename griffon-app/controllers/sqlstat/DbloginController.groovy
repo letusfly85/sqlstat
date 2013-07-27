@@ -23,7 +23,10 @@ class DbloginController {
             //raise
         }
 
-        model.conn = agent.conn
+        //SqlstatModel.setConn(agent.conn)
+        //app.models.SqlstatModel.conn = agent.conn
+        //app.models.SqlstatModel.conn = agent.conn
+        //model.conn = agent.conn
     }
 
     def logout = { evt = null ->

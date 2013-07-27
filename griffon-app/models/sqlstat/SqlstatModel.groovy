@@ -14,8 +14,10 @@ class SqlstatModel {
     @Bindable boolean indeterminate = false
     @Bindable int value = 0
 
-    @Bindable List<SqlstatInfoBean> list
+    @Bindable String username  = ""
+    @Bindable String password  = ""
+    @Bindable String hostname  = ""
 
-    @Bindable Connection conn
+    @Bindable List<SqlstatInfoBean> list
 
 }
