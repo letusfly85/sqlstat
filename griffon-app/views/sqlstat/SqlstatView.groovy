@@ -81,7 +81,7 @@ application(title: 'sqlstat',
     vbox {
         def tabPane = tabbedPane(tabPlacement: JTabbedPane.TOP) {
             label('Today ToDo', title:'Today ToDo', tabToolTip:'Uno!')
-            label('Green', title:'Urgent', tabBackground:java.awt.Color.GREEN)
+            label('Start Operation', title:'Urgent', tabBackground:java.awt.Color.GREEN)
             label('Stop Operation', title:'Activities', tabMnemonic:'O')
             label('Stop Operation', title:'Summary/Recording', tabDisplayedMnemonicIndex:5)
         }
