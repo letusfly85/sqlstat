@@ -4,6 +4,8 @@ import groovy.model.ValueHolder
 import javax.swing.BorderFactory
 import net.miginfocom.swing.MigLayout
 
+import javax.swing.JTabbedPane
+
 application(title: 'sqlstat',
   size: [640, 640],
   pack: true,
@@ -73,6 +75,15 @@ application(title: 'sqlstat',
                 propertyColumn header: 'Opname', propertyName: 'Opname'
                 propertyColumn header: 'Target', propertyName: 'Target'
             }
+        }
+    }
+
+    vbox {
+        def tabPane = tabbedPane(tabPlacement: JTabbedPane.TOP) {
+            label('Today ToDo', title:'Today ToDo', tabToolTip:'Uno!')
+            label('Green', title:'Urgent', tabBackground:java.awt.Color.GREEN)
+            label('Stop Operation', title:'Activities', tabMnemonic:'O')
+            label('Stop Operation', title:'Summary/Recording', tabDisplayedMnemonicIndex:5)
         }
     }
 
